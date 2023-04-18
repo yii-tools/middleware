@@ -1,7 +1,7 @@
 <p align="center">
     <a href="https://github.com/yii-tools/middleware" target="_blank">
         <img src="https://avatars.githubusercontent.com/u/121752654?s=200&v=4" height="100px">
-        <img src="https://github.com/yii-tools/middleware/blob/initial-commit/docs/middleware.png?raw=true" height="100px">
+        <img src="https://github.com/yii-tools/middleware/blob/change-logo/docs/middleware.png?raw=true" height="100px">
     </a>
     <h1 align="center">Collection of Middlewares for YiiFramework v.3.0.</h1>
     <br>
