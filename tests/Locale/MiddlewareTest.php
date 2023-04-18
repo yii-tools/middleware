@@ -106,7 +106,7 @@ final class MiddlewareTest extends TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('/', $response->getHeaderLine('Location'));
+        $this->assertSame('/en/', $response->getHeaderLine('Location'));
         $this->assertSame('en', $this->translator->getLocale());
     }
 
@@ -135,7 +135,7 @@ final class MiddlewareTest extends TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('/en', $response->getHeaderLine('Location'));
+        $this->assertSame('/en/', $response->getHeaderLine('Location'));
         $this->assertSame('en', $this->translator->getLocale());
     }
 
@@ -147,7 +147,7 @@ final class MiddlewareTest extends TestCase
         $response = $locale->process($this->request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('/en', $response->getHeaderLine('Location'));
+        $this->assertSame('/en/', $response->getHeaderLine('Location'));
         $this->assertSame('en', $this->translator->getLocale());
     }
 
@@ -257,7 +257,7 @@ final class MiddlewareTest extends TestCase
         $response = $locale->process($this->request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
-        $this->assertSame('/ru', $response->getHeaderLine('Location'));
+        $this->assertSame('/ru/', $response->getHeaderLine('Location'));
         $this->assertSame('ru', $this->translator->getLocale());
     }
 

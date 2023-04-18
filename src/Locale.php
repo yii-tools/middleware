@@ -47,17 +47,6 @@ final class Locale implements MiddlewareInterface
             $this->setLocale($language);
         }
 
-        if ($path === '/') {
-            $request = $request->withUri($uri->withPath('/'));
-        }
-
-        if (
-            ($path === "/$this->defaultLanguage" || $path === "/$this->defaultLanguage/") &&
-            $request->getMethod() === Method::GET
-        ) {
-            return $handler->handle($request->withUri($uri->withPath('/')));
-        }
-
         if ($language === $this->defaultLanguage) {
             $this->urlGenerator->setDefaultArgument($this->localeArgument, '');
             $request = $request->withUri($uri->withPath($this->getUrlPathWithLanguage($path, $language)));
@@ -117,6 +106,11 @@ final class Locale implements MiddlewareInterface
      */
     private function getUrlPathWithLanguage(string $path, string $language): string
     {
+
+        if ($path === "/$language" || $path === '') {
+            return "/$language/";
+        }
+
         if (str_contains($path, "/$language")) {
             return $path;
         }
