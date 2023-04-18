@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Yiisoft\Http\Method;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Translator\TranslatorInterface;
 
@@ -45,17 +44,6 @@ final class Locale implements MiddlewareInterface
 
         if ($this->shouldIgnoreUrl($request) === false) {
             $this->setLocale($language);
-        }
-
-        if ($path === '/') {
-            $request = $request->withUri($uri->withPath('/'));
-        }
-
-        if (
-            ($path === "/$this->defaultLanguage" || $path === "/$this->defaultLanguage/") &&
-            $request->getMethod() === Method::GET
-        ) {
-            return $handler->handle($request->withUri($uri->withPath('/')));
         }
 
         if ($language === $this->defaultLanguage) {
@@ -117,6 +105,10 @@ final class Locale implements MiddlewareInterface
      */
     private function getUrlPathWithLanguage(string $path, string $language): string
     {
+        if ($path === "/$language" || $path === '') {
+            return "/$language/";
+        }
+
         if (str_contains($path, "/$language")) {
             return $path;
         }
