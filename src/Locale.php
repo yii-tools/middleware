@@ -150,7 +150,7 @@ final class Locale implements MiddlewareInterface
         return in_array($currentUrl, $this->ignoredUrls);
     }
 
-    private function isValidLanguageCode($languageCode)
+    private function isValidLanguageCode(string $languageCode): bool
     {
         $validLanguageCodes = [
             'aa', 'ab', 'af', 'ak', 'am', 'ar', 'as', 'ay', 'az', 'ba', 'be', 'bg', 'bh', 'bi', 'bn', 'bo', 'br', 'bs',
