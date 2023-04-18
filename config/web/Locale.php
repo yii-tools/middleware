@@ -12,5 +12,5 @@ return [
             'languages' => $params['yii-tools/middleware']['locale']['languages'],
             'ignoredUrls' => $params['yii-tools/middleware']['locale']['ignoredUrls'],
         ],
-    ]
+    ],
 ];

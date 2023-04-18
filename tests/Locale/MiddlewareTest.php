@@ -250,7 +250,6 @@ final class MiddlewareTest extends TestCase
 
     public function testWithDefaultLocale(): void
     {
-
         $this->createContainer();
 
         $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);

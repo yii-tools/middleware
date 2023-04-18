@@ -14,8 +14,6 @@ final class RequestHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $response = new Response(302, ['X-Request-Handler' => 'true']);
-        $response = $response->withHeader('Location', strtolower($request->getUri()->getPath()));
-
-        return $response;
+        return $response->withHeader('Location', strtolower($request->getUri()->getPath()));
     }
 }

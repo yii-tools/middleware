@@ -19,8 +19,6 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Yii\Middleware\Locale;
-use Yii\Middleware\Tests\Support\IdentityRepository;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 use Yiisoft\Config\Config;
 use Yiisoft\Config\ConfigPaths;
@@ -91,7 +89,7 @@ trait TestTrait
                 $collector->addGroup($group);
 
                 return new RouteCollection($collector);
-            }
+            },
         ];
     }
 }
