@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Yii\Middleware;
+namespace Yii\Middleware\Tests\Guest;
 
 use PHPUnit\Framework\TestCase;
 use Yii\Middleware\Guest;
 use Yii\Middleware\Tests\Support\TestTrait;
 
-final class GuestTest extends TestCase
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
+final class MiddlewareTest extends TestCase
 {
     use TestTrait;
 
-    public function testProcessReturnsRedirectResponseIfNotGuest()
+    public function testProcessReturnsRedirectResponseIfNotGuest(): void
     {
         $this->createContainer();
 
@@ -23,7 +26,7 @@ final class GuestTest extends TestCase
         $this->assertSame('/', $response->getHeaderLine('Location'));
     }
 
-    public function testProcessReturnsRedirectResponseIfGuest()
+    public function testProcessReturnsRedirectResponseIfGuest(): void
     {
         $this->createContainer();
 

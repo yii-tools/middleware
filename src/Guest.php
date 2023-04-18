@@ -17,8 +17,10 @@ use Yiisoft\Http\Status;
  */
 final class Guest implements MiddlewareInterface
 {
-    public function __construct(private bool $isGuest, private ResponseFactoryInterface $responseFactory)
-    {
+    public function __construct(
+        private readonly bool $isGuest,
+        private readonly ResponseFactoryInterface $responseFactory
+    ) {
     }
 
     /**

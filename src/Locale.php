@@ -11,20 +11,21 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Yiisoft\Http\Method;
 use Yiisoft\Router\UrlGeneratorInterface;
 use Yiisoft\Translator\TranslatorInterface;
+use function str_contains;
 
 /**
  * Middleware that sets the application language based on the client's preferred language.
  */
 final class Locale implements MiddlewareInterface
 {
-    private string $defaultLenguage = 'en';
+    private string $defaultLanguage = 'en';
     private string $localeArgument = '_language';
 
     public function __construct(
-        private TranslatorInterface $translator,
-        private UrlGeneratorInterface $urlGenerator,
-        private array $languages = [],
-        private array $ignoredUrls = []
+        private readonly TranslatorInterface $translator,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly array $languages = [],
+        private readonly array $ignoredUrls = []
     ) {
     }
 
@@ -46,18 +47,17 @@ final class Locale implements MiddlewareInterface
         }
 
         if ($path === '/') {
-            $request = $request->withUri($uri->withPath('/' . $this->defaultLenguage . $path));
+            $request = $request->withUri($uri->withPath("/"));
         }
 
         if (
-            $path === '/' . $this->defaultLenguage ||
-            $path === '/' . $this->defaultLenguage . '/' &&
+            ($path === "/$this->defaultLanguage" || $path === "/$this->defaultLanguage/") &&
             $request->getMethod() === Method::GET
         ) {
             return $handler->handle($request->withUri($uri->withPath('/')));
         }
 
-        if ($language === $this->defaultLenguage) {
+        if ($language === $this->defaultLanguage) {
             $this->urlGenerator->setDefaultArgument($this->localeArgument, '');
             $request = $request->withUri($uri->withPath($this->getUrlPathWithLanguage($path, $language)));
         }
@@ -70,16 +70,16 @@ final class Locale implements MiddlewareInterface
     /**
      * Return new instance specifying the default language.
      */
-    public function withDefaultLocale(string $defaultLocale): self
+    public function withDefaultLanguage(string $defaultLanguage): self
     {
         $new = clone $this;
-        $new->defaultLenguage = $defaultLocale;
+        $new->defaultLanguage = $defaultLanguage;
 
         return $new;
     }
 
     /**
-     * Return new instance specifying the name of the argument that contains the language.
+     * Return new instance specifying the name of the argument that has the language.
      */
     public function withLocaleArgument(string $localeArgument): self
     {
@@ -97,7 +97,7 @@ final class Locale implements MiddlewareInterface
         $language = '';
 
         if ($path !== '') {
-            $language = explode('/', $path)[1];
+            $language = strtolower(explode('/', $path)[1]);
         }
 
         if (in_array($language, $this->languages, true)) {
@@ -108,7 +108,7 @@ final class Locale implements MiddlewareInterface
             return $language;
         }
 
-        return $this->defaultLenguage;
+        return $this->defaultLanguage;
     }
 
     /**
@@ -116,7 +116,7 @@ final class Locale implements MiddlewareInterface
      */
     private function getUrlPathWithLanguage(string $path, string $language): string
     {
-        if (str_contains($path, '/' . $language)) {
+        if (str_contains($path, "/$language")) {
             return $path;
         }
 
@@ -124,11 +124,11 @@ final class Locale implements MiddlewareInterface
     }
 
     /**
-     * Checks if a language code is valid (i.e. has the format xx or xx-xx).
+     * Checks if a language code is valid (for example has the format xx or xx-xx).
      */
     private function isValidLanguage(string $language): bool
     {
-        return preg_match('/^[a-z]{2}(?:-[a-z]{2})?$/i', $language) && $this->isValidLanguageCode($language);
+        return preg_match('/[a-z]{2}(?:-[a-z]{2})?/', $language) && $this->isValidLanguageCode($language);
     }
 
     /**
@@ -147,7 +147,7 @@ final class Locale implements MiddlewareInterface
     {
         $currentUrl = $request->getUri()->getPath();
 
-        return in_array($currentUrl, $this->ignoredUrls);
+        return in_array($currentUrl, $this->ignoredUrls, true);
     }
 
     private function isValidLanguageCode(string $languageCode): bool
@@ -165,6 +165,6 @@ final class Locale implements MiddlewareInterface
             'tw', 'ty', 'ug', 'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa', 'wo', 'xh', 'yi', 'yo', 'za', 'zh', 'zu'
         ];
 
-        return in_array(strtolower($languageCode), $validLanguageCodes);
+        return in_array($languageCode, $validLanguageCodes);
     }
 }
