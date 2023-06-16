@@ -42,6 +42,8 @@ final class Locale implements MiddlewareInterface
         $path = $uri->getPath();
         $language = $this->getLanguage($path);
 
+        new LocaleRouteHelper($path);
+
         if ($this->shouldIgnoreUrl($request) === false) {
             $this->setLocale($language);
         }
