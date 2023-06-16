@@ -16,7 +16,7 @@ final class ImmutableTest extends TestCase
     {
         $this->createContainer();
 
-        $locale = new Locale($this->translator, $this->urlGenerator, [], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, [], []);
         $this->assertNotSame($locale, $locale->withDefaultLanguage('en'));
         $this->assertNotSame($locale, $locale->withLocaleArgument('_language'));
     }

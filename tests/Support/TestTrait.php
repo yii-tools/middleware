@@ -19,6 +19,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\UploadedFileFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Yii\Middleware\LocaleRouteHelper;
 use Yiisoft\Auth\IdentityRepositoryInterface;
 use Yiisoft\Config\Config;
 use Yiisoft\Config\ConfigPaths;
@@ -34,6 +35,7 @@ use Yiisoft\Translator\TranslatorInterface;
 
 trait TestTrait
 {
+    private LocaleRouteHelper $localeRouteHelper;
     private RequestHandlerInterface $handler;
     private ResponseFactoryInterface $responseFactory;
     private ServerRequestInterface $request;
@@ -50,6 +52,7 @@ trait TestTrait
         $container = new Container($containerConfig);
 
         $this->handler = $container->get(RequestHandlerInterface::class);
+        $this->localeRouteHelper = $container->get(LocaleRouteHelper::class);
         $this->request = $container->get(ServerRequestInterface::class);
         $this->responseFactory = $container->get(ResponseFactoryInterface::class);
         $this->translator = $container->get(TranslatorInterface::class);

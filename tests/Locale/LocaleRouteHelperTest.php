@@ -14,6 +14,9 @@ final class LocaleRouteHelperTest extends TestCase
 {
     public function testLocaleRouteHelper(): void
     {
-        $this->assertSame('/contact', (new LocaleRouteHelper('/contact'))->getPath());
+        $localeRouteHelper = new LocaleRouteHelper();
+        $localeRouteHelper->setPath('/contact');
+
+        $this->assertSame('/contact', $localeRouteHelper->getPath());
     }
 }
