@@ -276,5 +276,6 @@ final class MiddlewareTest extends TestCase
         $this->assertSame('/ru/login', $response->getHeaderLine('Location'));
         $this->assertSame('ru', $this->translator->getLocale());
         $this->assertSame('/login?_lang=ru', $this->urlGenerator->generate('login'));
+        $this->assertSame('/ru/login', $this->localeRouteHelper->getPath());
     }
 }
