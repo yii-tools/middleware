@@ -9,8 +9,16 @@ namespace Yii\Middleware;
  */
 final class LocaleRouteHelper
 {
-    public function __construct(private readonly string $path)
+    private string $path = '';
+
+    /**
+     * Sets the path of the current request without locale part for default language.
+     *
+     * @param string $path the path of the current request without locale part for default language.
+     */
+    public function setPath(string $path): void
     {
+        $this->path = $path;
     }
 
     /**

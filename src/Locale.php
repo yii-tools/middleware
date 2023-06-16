@@ -22,6 +22,7 @@ final class Locale implements MiddlewareInterface
     private string $localeArgument = '_language';
 
     public function __construct(
+        private LocaleRouteHelper $localeRouteHelper,
         private readonly TranslatorInterface $translator,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly array $languages = [],
@@ -42,7 +43,7 @@ final class Locale implements MiddlewareInterface
         $path = $uri->getPath();
         $language = $this->getLanguage($path);
 
-        new LocaleRouteHelper($path);
+        $this->localeRouteHelper->setPath($path);
 
         if ($this->shouldIgnoreUrl($request) === false) {
             $this->setLocale($language);

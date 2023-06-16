@@ -24,7 +24,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -36,7 +36,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -48,7 +48,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -60,7 +60,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -75,7 +75,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -90,7 +90,7 @@ final class MiddlewareTest extends TestCase
 
         $request = new ServerRequest(method: 'GET', uri: $path);
         $request = $request->withUri($request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -101,7 +101,7 @@ final class MiddlewareTest extends TestCase
         $path = '/en';
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -118,7 +118,7 @@ final class MiddlewareTest extends TestCase
 
         $request = new ServerRequest(method: 'POST', uri: $path);
         $request = $request->withUri($request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -130,7 +130,7 @@ final class MiddlewareTest extends TestCase
 
         $request = new ServerRequest(method: 'POST', uri: $path);
         $request = $request->withUri($request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -143,7 +143,7 @@ final class MiddlewareTest extends TestCase
     {
         $this->createContainer();
 
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($this->request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -158,7 +158,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -173,7 +173,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -184,7 +184,7 @@ final class MiddlewareTest extends TestCase
         $path = '/aa/login';
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -196,7 +196,7 @@ final class MiddlewareTest extends TestCase
         $path = '/DE/login';
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -209,7 +209,7 @@ final class MiddlewareTest extends TestCase
     {
         $this->createContainer();
 
-        $locale = new Locale($this->translator, $this->urlGenerator, [], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, [], []);
         $response = $locale->process($this->request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -223,7 +223,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -239,7 +239,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $response = $locale->process($request, $this->handler);
 
         $this->assertSame(302, $response->getStatusCode());
@@ -252,7 +252,7 @@ final class MiddlewareTest extends TestCase
     {
         $this->createContainer();
 
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $locale = $locale->withDefaultLanguage('ru');
         $response = $locale->process($this->request, $this->handler);
 
@@ -268,7 +268,7 @@ final class MiddlewareTest extends TestCase
         $this->createContainer();
 
         $request = $this->request->withUri($this->request->getUri()->withPath($path));
-        $locale = new Locale($this->translator, $this->urlGenerator, ['en', 'ru'], []);
+        $locale = new Locale($this->localeRouteHelper, $this->translator, $this->urlGenerator, ['en', 'ru'], []);
         $locale = $locale->withLocaleArgument('_lang');
         $response = $locale->process($request, $this->handler);
 
